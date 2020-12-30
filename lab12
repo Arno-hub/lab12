@@ -1,0 +1,95 @@
+Question 1
+
+On clone l'URl du git via la commande : 
+git clone https://github.com/u-boot/u-boot.git
+
+Question 2
+
+Une fois que l'on est dans le répertoire git, on changevers la branche v2018.05
+On applique pour cela, la commande --> git checkout v2018.05
+
+Question 3
+
+On vérifie que l'on se situe bien dans la bonne branche via la commande --> git branch
+
+Question 4
+
+On se rend dans le répertoire /configs dans le répertoire u-boot .
+On relève le fichier defconfig qui correspond à notre carte (Processeur am335, beagle bone black) .
+-->am335x_boneblack_defconfig
+
+Question 5 
+
+Pour lancer le fichier defconfig_file correspondant à notre carte, on applique dans le u-boot la commande suivante :
+make am335x_boneblack_defconfig
+--> configuration written to .config 
+On a créé le .config 
+On affiche le .config via la commande --> cat .config 
+On remarque que le .config contient toutes les configurations de notre Bootloader --> Périphérique / variables ...
+Pour modifier la variable CONFIG_SYS_PROMPT, on ajoute la ligne de commande suivante à la fin du fichier bashrc : 
+-->export CONFIG_SYS_PROMPT=$QUERE-uboot 
+
+Question 6 
+
+Après avoir lancé la commande make, on remarque que le fichier u-boot.img a été généré : 
+--> MKIMAGE u-boot.img 
+Ainsi que le fichier MLO : 
+--> MKIMAGE MLO
+
+Question 7
+
+En effectuant la commande 'dmesg', on vérifie que la micro-SD est bien connectée à notre machine virtuelle. 
+On relève la dernière commande executée qui atteste du fait que le port USB utilisé est bien rattaché. 
+--> [sdb] Attached SCSI removable disk 
+
+Question 8
+
+En effectuant la commande 'mount'
+on vérifie que les partitions de la carte SD sont au complets.
+Cela est visible via l'indiacaion à la fin de l'execution de la commande "mount"--> /dev/sdb1 on /media/arno/boot .
+On se rend dans le répertoire /media/arno/boot .
+On constate bien la présence des fchiers MLO et uboot.img  
+
+Question 9 
+
+Après avoir effectué la commande sudo fdisk -l, on relève bien à nouveau le nom de notre carte SD 
+--> Disk /dev/sdb qui est sdb à l'intérieur de laquelle il y a sdb1 partitions 
+résultat de la commmande sudo fdisk -l : 
+
+
+Disk /dev/sdb: 3.8 GiB, 4025483264 bytes, 7862272 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x00000000 
+
+Avec dmesg --> On relève à nouveau le nom de la carte SD: [sdb] Attached SCSI removable disk 
+Et son nombre de partitions --> sdb: sdb1
+
+Question 10
+
+Pour démonter la partition on utilise la commande : umount /dev/sdb/sdb1
+
+Question 11
+
+Pour effacer la table de partition de la carte SD en effaçant le premier Mo de la carte sd.
+On fait appel au device virtuel /dev/ZERO via la commande dd pour copier des zero dans le premier Mo tel que : 
+sudo dd if=/dev/zero of=/dev/sdb bs=1024 count=1024 (block size 1024, count 1024)
+
+Question 12
+
+Pour vérifier que la table de partition de la carte SD est vide on utilise la commande suivante : 
+cfdisk /dev/sdb. 
+Par ailleurs, pour créer une nouvelle partition on sélectionne dans le menu label type le type de dos et on coche la case amorçable et on sélectionne le type 0E (W95 FAT16 (LBA)).
+On réalise aussi l'opération d"criture sur la carte SD. 
+
+Question 13
+
+Pour formatter la partition que l'on a créé et donner le nom boot à cette partition.
+On applique la commande sudo mkfs.vfat -F 32 /dev/sdb/sdb1 -n boot 
+
+Question 14
+
+Quand on retire et on réinsère la carte on remarque que la partition est monté automatiquement sur : 
+media/arno/boot. On copie en suite les deux fichiers générés MLO et u-boot.img sur cette partition.  
