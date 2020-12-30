@@ -12,9 +12,12 @@ Question 3
 
 On vérifie que l'on se situe bien dans la bonne branche via la commande --> git branch
 
+--> * (HEAD detached at v2018.05)
+      master
+
 Question 4
 
-On se rend dans le répertoire /configs dans le répertoire u-boot .
+On se rend dans le répertoire /configs dans le répertoire /u-boot .
 On relève le fichier defconfig qui correspond à notre carte (Processeur am335, beagle bone black) .
 -->am335x_boneblack_defconfig
 
@@ -45,8 +48,8 @@ On relève la dernière commande executée qui atteste du fait que le port USB u
 Question 8
 
 En effectuant la commande 'mount'
-on vérifie que les partitions de la carte SD sont au complets.
-Cela est visible via l'indiacaion à la fin de l'execution de la commande "mount"--> /dev/sdb1 on /media/arno/boot .
+On vérifie que les partitions de la carte SD sont au complets.
+Cela est visible via l'indication à la fin de l'execution de la commande "mount"--> /dev/sdb1 on /media/arno/boot .
 On se rend dans le répertoire /media/arno/boot .
 On constate bien la présence des fchiers MLO et uboot.img  
 
