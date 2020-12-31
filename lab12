@@ -72,7 +72,7 @@ Et son nombre de partitions --> sdb: sdb1
 
 Question 10
 
-Pour démonter la partition on utilise la commande : umount /dev/sdb/sdb1
+Pour démonter la partition on utilise la commande : umount /dev/sdb1
 
 Question 11
 
@@ -90,7 +90,7 @@ On réalise aussi l'opération d"criture sur la carte SD.
 Question 13
 
 Pour formatter la partition que l'on a créé et donner le nom boot à cette partition.
-On applique la commande sudo mkfs.vfat -F 32 /dev/sdb/sdb1 -n boot 
+On applique la commande sudo mkfs.vfat -F 32 /dev/sdb1 -n boot 
 
 Question 14
 
